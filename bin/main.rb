@@ -8,7 +8,7 @@ def display(board, player)
   puts "Instructions here"
   puts "\nPlayer's turn here"
   puts board.display
-  board.move(gets.chomp.to_i - 1, player)
+  puts "Invalid Move!" unless board.move(gets.chomp.to_i - 1, player)
 end
 
 # The 3 by 3 grid Board:
@@ -58,9 +58,35 @@ end
 #
 # Display a message ask the players if they want to play again (Y/N)
 
-board = Board.new([1,2,3,4,5,6,7,8,9])
+#board = Board.new([1,2,3,4,5,6,7,8,9])
 
-(1..10).each do |i|
-  player = (i % 2).zero? ? 'O' : 'X'
-  display(board, player)
+#(1..10).each do |i|
+#  player = (i % 2).zero? ? 'O' : 'X'
+# display(board, player)
+#  if board.winner?
+#    puts "Winner Winner"
+#  end
+#end
+
+board = Board.new([1,2,3,4,5,6,7,8,9])
+playing = true
+turn = 0
+
+while playing
+  board.display
+
+  begin
+    if turn == 0
+      puts "PLAYER 1 ..It's your turn hommie!"
+      player = gets.to_i
+      board.move(player, "X")
+    else
+      puts "PLAYER 2 ..It's your turn hommie!"
+      player2 = gets.to_i
+      board.move(player2, "0")
+    end 
+  end
+
+  turn += 1
+  turn = turn % 2
 end
