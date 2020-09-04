@@ -49,3 +49,8 @@
 #  Display a draw message (It's a draw)
 #
 # Display a message ask the players if they want to play again (Y/N)
+
+require('./lib/board.rb')
+    board = Board.new([1,2,3,4,5,6,7,8,9])
+
+    p board
