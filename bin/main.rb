@@ -1,28 +1,29 @@
 #!/usr/bin/env ruby
 require('./lib/board.rb')
-
-# Instructions on how to play the game
-
-# A warning message if the player makes an invalid move
-# An Ending message after the game ends, ask the player
-#  if he wants to play again
+require 'colorize'
 
 board = Board.new([1,2,3,4,5,6,7,8,9])
 playing = true
 turn = 1
 
 while playing
-  puts board.display
+  puts board.display.blue
 
   if board.winner?
     board.display
     playing = false
-    return puts "Player #{turn == 1 ? 2 : 1} wins!"
+    (40).times{print'*'.green}
+    puts "Player #{turn == 1 ? 2 : 1} wins!".green
+    (40).times{print'*'.green}
+    return
   end
 
   unless board.board.any? Numeric
     playing = false
-    return puts "It's a draw!"
+    (40).times{print'*'.yellow}
+    puts "It's a draw!".yellow
+    (40).times{print'*'.yellow}
+    return
   end
 
   if turn
@@ -33,7 +34,9 @@ while playing
       board.move(player, turn == 1 ? 'X' : 'O')
       turn = (turn == 1 ? 2 : 1) 
     else
-      puts 'Invalid move. Try again.'
+      (40).times{print'*'.red}
+      puts 'Invalid move. Try again.'.red
+      (40).times{print'*'.red}
       next
     end
   end
