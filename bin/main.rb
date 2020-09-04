@@ -1,8 +1,16 @@
 #!/usr/bin/env ruby
-
+require('./lib/board.rb')
 # What we need to display for the player:
 
 # Instructions on how to play the game
+
+def display(board, player)
+  puts "Instructions here"
+  puts "\nPlayer's turn here"
+  puts board.display
+  board.move(gets.chomp.to_i - 1, player)
+end
+
 # The 3 by 3 grid Board:
 # 1 | 2 | 3
 # - | - | -
@@ -50,7 +58,9 @@
 #
 # Display a message ask the players if they want to play again (Y/N)
 
-require('./lib/board.rb')
-    board = Board.new([1,2,3,4,5,6,7,8,9])
+board = Board.new([1,2,3,4,5,6,7,8,9])
 
-    p board
+(1..10).each do |i|
+  player = (i % 2).zero? ? 'O' : 'X'
+  display(board, player)
+end
