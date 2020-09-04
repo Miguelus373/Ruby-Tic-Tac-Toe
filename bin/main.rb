@@ -1,27 +1,9 @@
 #!/usr/bin/env ruby
 require('./lib/board.rb')
-# What we need to display for the player:
 
 # Instructions on how to play the game
 
-def display(board, player)
-  puts "Instructions here"
-  puts "\nPlayer's turn here"
-  puts board.display
-  puts "Invalid Move!" unless board.move(gets.chomp.to_i - 1, player)
-end
-
-# The 3 by 3 grid Board:
-# 1 | 2 | 3
-# - | - | -
-# 4 | 5 | 6   Representation of the board
-# - | - | -
-# 7 | 8 | 9
-
-# Which player should make a move
-# Fill the board accordingly with the players' move
 # A warning message if the player makes an invalid move
-# A winning or draw message when the game is over
 # An Ending message after the game ends, ask the player
 #  if he wants to play again
 
@@ -35,58 +17,43 @@ end
 # if the players selects a place not taken puts his symbol in this place.
 # if the players selects a taken place returns the warning message.
 
-# How to win:
-# Any row has the same symbol on its 3 spaces:
-# 1,2,3 Horizontal Top
-# 4,5,6 Horizontal middle
-# 7,8,9 Horizontal bottom
-
-# Any column has the same symbol on its 3 spaces:
-# 1,4,7 Vertical left
-# 2,5,8 Vertical center
-# 3,6,9 Vertical right
-
-# Any diagonal has the same symbol on its 3 spaces:
-# 1,5,9 Diagonal Left
-# 3,5,7 Diagonal right
-
-# How to end the game:
-# One of the player win
-#  Display (Winner, Winner, Chicken Dinner!!)
-# Current player can't make a move
-#  Display a draw message (It's a draw)
-#
-# Display a message ask the players if they want to play again (Y/N)
-
-#board = Board.new([1,2,3,4,5,6,7,8,9])
-
-#(1..10).each do |i|
-#  player = (i % 2).zero? ? 'O' : 'X'
-# display(board, player)
-#  if board.winner?
-#    puts "Winner Winner"
-#  end
-#end
-
 board = Board.new([1,2,3,4,5,6,7,8,9])
 playing = true
-turn = 0
+turn = 1
 
 while playing
-  board.display
+  puts board.display
 
-  begin
-    if turn == 0
-      puts "PLAYER 1 ..It's your turn hommie!"
-      player = gets.to_i
-      board.move(player, "X")
-    else
-      puts "PLAYER 2 ..It's your turn hommie!"
-      player2 = gets.to_i
-      board.move(player2, "0")
-    end 
+  if board.winner?
+    board.display
+    playing = false
+    return puts "Player #{turn == 1 ? 2 : 1} wins!"
   end
 
-  turn += 1
-  turn = turn % 2
+  unless board.board.any? Numeric
+    playing = false
+    return puts "It's a draw!"
+  end
+
+  if turn == 1
+    puts "PLAYER #{turn} ..It's your turn hommie!"
+    player = gets.to_i - 1
+    if board.board[player].is_a? Numeric
+      board.move(player, "X")
+      turn += 1
+    else
+      puts 'Invalid move. Try again.'
+      next
+    end
+  else
+    puts "PLAYER 2 ..It's your turn hommie!"
+    player = gets.to_i - 1 
+    if board.board[player].is_a? Numeric
+      board.move(player, "O")
+      turn -= 1
+    else
+      puts 'Invalid move. Try again.'
+      next
+    end
+  end
 end
