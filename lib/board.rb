@@ -25,3 +25,5 @@ class Board
     end
   end
 end
+
+print move
