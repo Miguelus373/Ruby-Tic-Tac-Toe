@@ -49,3 +49,25 @@
 #  Display a draw message (It's a draw)
 #
 # Display a message ask the players if they want to play again (Y/N)
+#
+#
+# Run this file to see a basic flow of the game
+puts "\nShow the Board:"
+
+puts "\n  1 | 2 | 3\n  --|---|--\n  4 | 5 | 6\n  --|---|--\n  7 | 8 | 9"
+
+puts "\nIt's your turn, Choose a number:"
+
+gets
+
+puts "\n  1 | 2 | 3\n  --|---|--\n  4 | 5 | 6\n  --|---|--\n  7 | 8 | 9"
+
+puts "\nNow your move is displayed!"
+
+puts "\nAnd it's next player move:"
+
+gets
+
+puts "\nThe player that gets 3 symbols in a row wins"
+
+puts "\nDisplay the Player that won."
