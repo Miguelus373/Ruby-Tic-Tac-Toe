@@ -6,7 +6,7 @@ class Board
   end
 
   def move(move, symbol)
-    if (board[move].is_a? Numeric) && @board[move] > -1 && @board[move] < 9
+    if (board[move].is_a? Numeric) && move >= 0 && move <= 9
       @board[move] = symbol
       @board
     else
