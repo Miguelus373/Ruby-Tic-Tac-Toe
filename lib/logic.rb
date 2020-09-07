@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
 class Logic
   attr_reader :game
 
@@ -10,7 +11,7 @@ class Logic
   end
 
   def winner?
-    return true if 
+    return true if
        (@game[0] == @game[1] && @game[1] == @game[2]) ||
        (@game[3] == @game[4] && @game[4] == @game[5]) ||
        (@game[6] == @game[7] && @game[7] == @game[8]) ||
@@ -21,3 +22,5 @@ class Logic
        (@game[2] == @game[5] && @game[5] == @game[8])
   end
 end
+
+# rubocop:enable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity

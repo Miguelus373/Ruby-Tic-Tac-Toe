@@ -30,11 +30,11 @@ while playing
   puts "\nPLAYER #{turn} It's your turn!"
   move = gets.to_i - 1
 
-  if game.move(move, turn == 1 ? 'X' : 'O')    
+  if game.move(move, turn == 1 ? 'X' : 'O')
     logic.game[move] = turn == 1 ? 'X' : 'O'
     turn = (turn == 1 ? 2 : 1)
   else
-    invalid_msg.display { |i| print i.red}
+    invalid_msg.display { |i| print i.red }
     next
   end
 end

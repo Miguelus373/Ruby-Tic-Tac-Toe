@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
 class Board
   attr_reader :board
 
@@ -23,5 +22,3 @@ class Board
   #{board[6]} | #{board[7]} | #{board[8]}"
   end
 end
-
-# rubocop:enable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
