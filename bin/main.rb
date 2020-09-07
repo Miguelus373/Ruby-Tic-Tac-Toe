@@ -1,73 +1,40 @@
 #!/usr/bin/env ruby
+require_relative '../lib/board.rb'
+require_relative '../lib/message.rb'
+require_relative '../lib/logic.rb'
+require 'colorize'
 
-# What we need to display for the player:
+game = Board.new([1, 2, 3, 4, 5, 6, 7, 8, 9])
+logic = Logic.new([1, 2, 3, 4, 5, 6, 7, 8, 9])
+playing = true
+turn = 1
 
-# Instructions on how to play the game
-# The 3 by 3 grid Board:
-# 1 | 2 | 3
-# - | - | -
-# 4 | 5 | 6   Representation of the board
-# - | - | -
-# 7 | 8 | 9
+draw_msg = Message.new("\nIt's a draw!\n")
+invalid_msg = Message.new("\nInvalid move. Try again.\n")
 
-# Which player should make a move
-# Fill the board accordingly with the players' move
-# A warning message if the player makes an invalid move
-# A winning or draw message when the game is over
-# An Ending message after the game ends, ask the player
-#  if he wants to play again
+while playing
+  puts game.display.blue
 
-# Input from players:
-# Ask player 1 to select an empty place (1-9) to make
-#   his move then add an X in that place (if empty)
-# Ask player 2 to select an empty place (1-9) to make
-#   his move then add an O in that place (if empty)
+  if logic.winner?
+    print '*'.green * 40
+    puts "\nPlayer #{turn == 1 ? 2 : 1} wins!".green
+    print '*'.green * 40
+    break
+  end
 
-# Valid Moves:
-# if the players selects a place not taken puts his symbol in this place.
-# if the players selects a taken place returns the warning message.
+  unless logic.draw?
+    draw_msg.display { |i| print i.yellow }
+    break
+  end
 
-# How to win:
-# Any row has the same symbol on its 3 spaces:
-# 1,2,3 Horizontal Top
-# 4,5,6 Horizontal middle
-# 7,8,9 Horizontal bottom
+  puts "\nPLAYER #{turn} It's your turn!"
+  move = gets.to_i - 1
 
-# Any column has the same symbol on its 3 spaces:
-# 1,4,7 Vertical left
-# 2,5,8 Vertical center
-# 3,6,9 Vertical right
-
-# Any diagonal has the same symbol on its 3 spaces:
-# 1,5,9 Diagonal Left
-# 3,5,7 Diagonal right
-
-# How to end the game:
-# One of the player win
-#  Display (Winner, Winner, Chicken Dinner!!)
-# Current player can't make a move
-#  Display a draw message (It's a draw)
-#
-# Display a message ask the players if they want to play again (Y/N)
-#
-#
-# Run this file to see a basic flow of the game
-puts "\nShow the Board:"
-
-puts "\n  1 | 2 | 3\n  --|---|--\n  4 | 5 | 6\n  --|---|--\n  7 | 8 | 9"
-
-puts "\nIt's your turn, Choose a number:"
-
-gets
-
-puts "\n  1 | 2 | 3\n  --|---|--\n  4 | 5 | 6\n  --|---|--\n  7 | 8 | 9"
-
-puts "\nNow your move is displayed!"
-
-puts "\nAnd it's next player move:"
-
-gets
-
-puts "\nThe player that gets 3 symbols in a row wins"
-
-puts "\nDisplay the Player that won."
+  if game.move(move, turn == 1 ? 'X' : 'O')
+    logic.game[move] = turn == 1 ? 'X' : 'O'
+    turn = (turn == 1 ? 2 : 1)
+  else
+    invalid_msg.display { |i| print i.red }
+    next
+  end
+end
