@@ -4,8 +4,8 @@ class Message
   end
 
   def display
-    40.times { yield('*') }
+    yield('*' * 40)
     yield(@message)
-    40.times { yield('*') }
+    yield('*' * 40)
   end
 end

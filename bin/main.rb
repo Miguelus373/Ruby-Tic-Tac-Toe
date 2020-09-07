@@ -1,9 +1,11 @@
 #!/usr/bin/env ruby
 require_relative '../lib/board.rb'
 require_relative '../lib/message.rb'
+require_relative '../lib/logic.rb'
 require 'colorize'
 
 game = Board.new([1, 2, 3, 4, 5, 6, 7, 8, 9])
+logic = Logic.new([1, 2, 3, 4, 5, 6, 7, 8, 9])
 playing = true
 turn = 1
 
@@ -13,30 +15,26 @@ invalid_msg = Message.new("\nInvalid move. Try again.\n")
 while playing
   puts game.display.blue
 
-  if game.winner?
-    playing = false
-    40.times { print '*'.green }
+  if logic.winner?
+    print '*'.green * 40
     puts "\nPlayer #{turn == 1 ? 2 : 1} wins!".green
-    40.times { print '*'.green }
-    return
+    print '*'.green * 40
+    break
   end
 
-  unless game.board.any? Numeric
-    playing = false
+  unless logic.draw?
     draw_msg.display { |i| print i.yellow }
-    return
+    break
   end
-
-  next unless turn
 
   puts "\nPLAYER #{turn} It's your turn!"
-  player = gets.to_i - 1
+  move = gets.to_i - 1
 
-  if player > -1 && player < 9 && (game.board[player].is_a? Numeric)
-    game.move(player, turn == 1 ? 'X' : 'O')
+  if game.move(move, turn == 1 ? 'X' : 'O')    
+    logic.game[move] = turn == 1 ? 'X' : 'O'
     turn = (turn == 1 ? 2 : 1)
   else
-    invalid_msg.display { |i| print i.red }
+    invalid_msg.display { |i| print i.red}
     next
   end
 end
