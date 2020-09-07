@@ -1,16 +1,19 @@
 #!/usr/bin/env ruby
-require('./lib/board.rb')
+require_relative '../lib/board.rb'
+require_relative '../lib/message.rb'
 require 'colorize'
 
-board = Board.new([1, 2, 3, 4, 5, 6, 7, 8, 9])
+game = Board.new([1, 2, 3, 4, 5, 6, 7, 8, 9])
 playing = true
 turn = 1
 
-while playing
-  puts board.display.blue
+draw_msg = Message.new("\nIt's a draw!\n")
+invalid_msg = Message.new("\nInvalid move. Try again.\n")
 
-  if board.winner?
-    board.display
+while playing
+  puts game.display.blue
+
+  if game.winner?
     playing = false
     40.times { print '*'.green }
     puts "\nPlayer #{turn == 1 ? 2 : 1} wins!".green
@@ -18,26 +21,22 @@ while playing
     return
   end
 
-  unless board.board.any? Numeric
+  unless game.board.any? Numeric
     playing = false
-    40.times { print '*'.yellow }
-    puts "\nIt's a draw!".yellow
-    40.times { print '*'.yellow }
+    draw_msg.display { |i| print i.yellow }
     return
   end
 
   next unless turn
 
-  puts "\nPLAYER #{turn} ..It's your turn!"
+  puts "\nPLAYER #{turn} It's your turn!"
   player = gets.to_i - 1
 
-  if player > -1 && player < 9 && (board.board[player].is_a? Numeric)
-    board.move(player, turn == 1 ? 'X' : 'O')
+  if player > -1 && player < 9 && (game.board[player].is_a? Numeric)
+    game.move(player, turn == 1 ? 'X' : 'O')
     turn = (turn == 1 ? 2 : 1)
   else
-    40.times { print '*'.red }
-    puts "\nInvalid move. Try again.".red
-    40.times { print '*'.red }
+    invalid_msg.display { |i| print i.red }
     next
   end
 end
