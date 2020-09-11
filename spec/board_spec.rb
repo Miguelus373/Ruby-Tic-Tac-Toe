@@ -13,19 +13,19 @@ describe Board do
     end
 
     it 'returns false when invalid move' do
-      expect(board.move(1, 'X')).to eql(false)
+      expect(board.move(1, 'X')).to be false
     end
 
     it 'returns false when use string as input' do
-      expect(board.move('a'.to_i, 'X')).to eql(false)
+      expect(board.move('a'.to_i, 'X')).to be false
     end
 
     it 'returns false when use negative number as input' do
-      expect(board.move(-1, 'X')).to eql(false)
+      expect(board.move(-1, 'X')).to be false
     end
 
     it 'returns false when use a big number as input' do
-      expect(board.move(10, 'X')).to eql(false)
+      expect(board.move(10, 'X')).to be false
     end
   end
 

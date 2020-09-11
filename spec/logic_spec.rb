@@ -6,11 +6,11 @@ describe Logic do
 
   describe '#draw?' do
     it 'returns nil when the game ends in a draw' do
-      expect(game_draw.draw?).to eql(nil)
+      expect(game_draw.draw?).to be nil
     end
 
     it 'returns true when the game is not in a draw' do
-      expect(game_incomplete.draw?).to eql(true)
+      expect(game_incomplete.draw?).to be true
     end
   end
 
@@ -21,19 +21,19 @@ describe Logic do
     game_not_win = Logic.new([1, 2, 3, 'O', 'X', 6, 7, 8, 'X'])
 
     it 'returns true when a row is filled with the same symbol' do
-      expect(game_win_row.winner?).to eql(true)
+      expect(game_win_row.winner?).to be true
     end
 
     it 'returns true when a column is filled with the same symbol' do
-      expect(game_win_col.winner?).to eql(true)
+      expect(game_win_col.winner?).to be true
     end
 
     it 'returns true when a diagonal is filled with the same symbol' do
-      expect(game_win_diag.winner?).to eql(true)
+      expect(game_win_diag.winner?).to be true
     end
 
     it 'returns nil if there is not a winner yet' do
-      expect(game_not_win.winner?).to eql(nil)
+      expect(game_not_win.winner?).to be nil
     end
   end
 end
