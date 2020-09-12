@@ -50,12 +50,12 @@ OnLine:
 - Use the numbers on the board to select where to make your move (1 - 9)
 - If you select a diferent character or number that is not on the board, you will see a warning message
 
-### How to run the cases
+### How to run the test cases
 
 - To be able to run the tests for this project you will need the local version of the game
-- Once you have the repo just run `rspec` in the command line
-- And that's it! You have all the tests displayed on your terminal
-- If you want to add your own changes check the spec folder and look for the class you want to add tests for
+- Once you have the repo run `bundle install` in the command line to install all necessary gems
+- Then run `rspec` and all the tests will display on your terminal
+- If you want to add your own tests check the spec folder and look for the class you want to add tests for
 
 ## Authors
 
