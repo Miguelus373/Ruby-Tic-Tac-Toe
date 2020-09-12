@@ -1,8 +1,8 @@
-require './lib/logic.rb'
+require_relative '../lib/logic.rb'
 
 describe Logic do
-  game_draw = Logic.new(%w[X O X X O X O X O])
-  game_incomplete = Logic.new(['X', 'O', 'X', 'X', 5, 6, 7, 8, 9])
+  let(:game_draw) { Logic.new(%w[X O X X O X O X O]) }
+  let(:game_incomplete) { Logic.new(['X', 'O', 'X', 'X', 5, 6, 7, 8, 9]) }
 
   describe '#draw?' do
     it 'returns nil when the game ends in a draw' do
@@ -15,10 +15,10 @@ describe Logic do
   end
 
   describe '#winner?' do
-    game_win_row = Logic.new(['X', 'X', 'X', 'O', 'O', 6, 7, 8, 9])
-    game_win_col = Logic.new(['X', 'O', 3, 'X', 'O', 6, 'X', 8, 9])
-    game_win_diag = Logic.new(['O', 'X', 'X', 'X', 'O', 6, 7, 8, 'O'])
-    game_not_win = Logic.new([1, 2, 3, 'O', 'X', 6, 7, 8, 'X'])
+    let(:game_win_row) { Logic.new(['X', 'X', 'X', 'O', 'O', 6, 7, 8, 9]) }
+    let(:game_win_col) { Logic.new(['X', 'O', 3, 'X', 'O', 6, 'X', 8, 9]) }
+    let(:game_win_diag) { Logic.new(['O', 'X', 'X', 'X', 'O', 6, 7, 8, 'O']) }
+    let(:game_not_win) { Logic.new([1, 2, 3, 'O', 'X', 6, 7, 8, 'X']) }
 
     it 'returns true when a row is filled with the same symbol' do
       expect(game_win_row.winner?).to be true

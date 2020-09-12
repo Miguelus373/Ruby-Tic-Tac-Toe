@@ -50,6 +50,13 @@ OnLine:
 - Use the numbers on the board to select where to make your move (1 - 9)
 - If you select a diferent character or number that is not on the board, you will see a warning message
 
+### How to run the cases
+
+- To be able to run the tests for this project you will need the local version of the game
+- Once you have the repo just run `rspec` in the command line
+- And that's it! You have all the tests displayed on your terminal
+- If you want to add your own changes check the spec folder and look for the class you want to add tests for
+
 ## Authors
 
 👤 **Carlos Flores Robles**
